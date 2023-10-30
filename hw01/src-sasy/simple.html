@@ -37,10 +37,10 @@
         function selectFaculty(faculty) {
             code = ""
             switch (faculty) {
-                case '資工系':
+                case '資工':
                     code = "590";
                     break;
-                case '資工所':
+                case '資工碩':
                     code = "598";
                     break;
                 case '電資AI':
@@ -79,14 +79,19 @@
 
         a3[0] = ['序號', '班級', '學號', '姓名', 'GitHub', '作業一', '作業二', '作業三', '作業四', '作業五', '作業六', '作業七', '作業八', '作業九', '作業十']
 
-        student_class = ['資工系','資工所','電資AI','電資資安','創新AI']
+        student_class = ['資工','資工碩','電資AI','電資資安','創新AI']
 
         year = ['111', '112']
 
         for (var i = 1; i < a3.length; i++) {
             a3[i][0] = i;
-            a3[i][1] = student_class[(Math.floor(Math.random() * student_class.length))];
-            a3[i][2] = year[(Math.floor(Math.random() * 2))] + selectFaculty(a3[i][1]) + Math.floor(Math.random() * 999);
+            const y = year[(Math.floor(Math.random() * 2))]
+            if (y === "111") {
+                a3[i][1] = student_class[(Math.floor(Math.random() * student_class.length))] + "一";
+            } else {
+                a3[i][1] = student_class[(Math.floor(Math.random() * student_class.length))] + "二";
+            }
+            a3[i][2] = y + selectFaculty(a3[i][1]) + Math.floor(Math.random() * 999);
             a3[i][3] = String.fromCharCode(Math.floor(Math.random() * 0x51ff + 0x4e00)) +
                     String.fromCharCode(Math.floor(Math.random() * 0x51ff + 0x4e00)) +
                     String.fromCharCode(Math.floor(Math.random() * 0x51ff + 0x4e00));
@@ -95,8 +100,6 @@
                 a3[i][j] = Math.floor(Math.random() * 10);
             }
         }
-
-
 
         // https://medium.com/wdstack/quick-blurb-generating-a-table-from-an-array-in-javascript-41386fd449a9
         //setup our table array
