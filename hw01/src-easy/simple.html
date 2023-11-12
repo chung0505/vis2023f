@@ -86,12 +86,17 @@
         for (var i = 1; i < a3.length; i++) {
             a3[i][0] = i;
             const y = year[(Math.floor(Math.random() * 2))]
+            const c = student_class[(Math.floor(Math.random() * student_class.length))]
+            const ran = Math.floor(Math.random() * 999);
             if (y === "111") {
-                a3[i][1] = student_class[(Math.floor(Math.random() * student_class.length))] + "一";
+                a3[i][1] = c + "一";
             } else {
-                a3[i][1] = student_class[(Math.floor(Math.random() * student_class.length))] + "二";
+                a3[i][1] = c + "二";
             }
-            a3[i][2] = y + selectFaculty(a3[i][1]) + Math.floor(Math.random() * 999);
+            if (ran < 10) a3[i][2] = y + selectFaculty(c) + "00" + ran;
+            else if (ran < 100) a3[i][2] = y + selectFaculty(c) + "0" + ran;
+            else a3[i][2] = y + selectFaculty(c) + ran;
+            
             a3[i][3] = String.fromCharCode(Math.floor(Math.random() * 0x51ff + 0x4e00)) +
                     String.fromCharCode(Math.floor(Math.random() * 0x51ff + 0x4e00)) +
                     String.fromCharCode(Math.floor(Math.random() * 0x51ff + 0x4e00));
