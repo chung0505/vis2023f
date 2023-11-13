@@ -38,7 +38,28 @@ function _6(constellationNames,constellationCounts,data)
 }
 
 
-function _7(Plot,plot2,constellationCounts){return(
+function _7(Plot,plot2,constellationNames,data){return(
+Plot.plot({  
+
+	marginTop: plot2.mt,
+  marginRight: plot2.mr,
+  marginBottom: plot2.mb,
+  marginLeft: plot2.ml,
+  
+	y: {grid: true, label: "count"},
+  x: {
+    ticks: 12,
+    tickFormat: d => constellationNames[d],
+    domain:[0, 11]
+  },
+	marks: [    
+    Plot.ruleY([0]),
+		Plot.rectY(data, Plot.binX({y:"count"}, { x:"Constellation", interval:1, fill:"Gender", tip: true })),    
+	 ]
+})
+)}
+
+function _8(Plot,plot2,constellationCounts){return(
 Plot.plot({
   marginTop: plot2.mt,
   marginRight: plot2.mr,
@@ -68,6 +89,7 @@ export default function define(runtime, observer) {
   main.variable(observer("viewof plot2")).define("viewof plot2", ["Inputs"], _plot2);
   main.variable(observer("plot2")).define("plot2", ["Generators", "viewof plot2"], (G, _) => G.input(_));
   main.variable(observer()).define(["constellationNames","constellationCounts","data"], _6);
-  main.variable(observer()).define(["Plot","plot2","constellationCounts"], _7);
+  main.variable(observer()).define(["Plot","plot2","constellationNames","data"], _7);
+  main.variable(observer()).define(["Plot","plot2","constellationCounts"], _8);
   return main;
 }
