@@ -190,7 +190,11 @@ function _19(md){return(
 md`# Strong Baseline`
 )}
 
-function _chart1(data,selectedDataSet1,d3)
+function _selectedDataSet2(Inputs){return(
+Inputs.checkbox(["artist", "artistpublic"], {label: "Choose datasets", value: ["artist", "artistpublic"]})
+)}
+
+function _chart1(data,selectedDataSet2,d3)
 {
   // 定義邊界大小，以及圖形的寬度和高度
   const margin = {top: 20, right: 30, bottom: 30, left: 40};
@@ -201,7 +205,7 @@ function _chart1(data,selectedDataSet1,d3)
   const keys = Array.from(new Set(data.map(d => d.series)));
   
   // 根據選擇的系列過濾數據
-  const filteredData = data.filter(d => selectedDataSet1.includes(d.series));
+  const filteredData = data.filter(d => selectedDataSet2.includes(d.series));
 
   // 對過濾後的數據進行分組處理
   let grouped = Array.from(d3.group(filteredData, d => d.value), ([key, value]) => {
@@ -271,7 +275,7 @@ function _chart1(data,selectedDataSet1,d3)
 }
 
 
-function _chart2(data,selectedDataSet1,d3)
+function _chart2(data,selectedDataSet2,d3)
 {
   // 定義邊界大小，以及圖形的寬度和高度
   const margin = {top: 20, right: 30, bottom: 30, left: 40};
@@ -282,7 +286,7 @@ function _chart2(data,selectedDataSet1,d3)
   const keys = Array.from(new Set(data.map(d => d.series)));
   
   // 根據選擇的系列過濾數據
-  const filteredData = data.filter(d => selectedDataSet1.includes(d.series));
+  const filteredData = data.filter(d => selectedDataSet2.includes(d.series));
 
   // 對過濾後的數據進行分組處理
   let grouped = Array.from(d3.group(filteredData, d => d.value), ([key, value]) => {
@@ -391,16 +395,12 @@ function _chart2(data,selectedDataSet1,d3)
 }
 
 
-function _22(md){return(
-md`# 以上程式碼參考曾詠暄助教的Code`
-)}
-
 export default function define(runtime, observer) {
   const main = runtime.module();
   function toString() { return this.url; }
   const fileAttachments = new Map([
-    ["artistVer.csv", {url: new URL("../artistPublic.csv", import.meta.url), mimeType: "text/csv", toString}],
-    ["artistPublic.csv", {url: new URL("../artistVer.csv", import.meta.url), mimeType: "text/csv", toString}]
+    ["artistVer.csv", {url: new URL("./files/363ea43eed3c6a6a6fed83d3e26ac23641da56f4f0689da720760208af84f1c3caff531322fc2ceeaf3924e4ff2f0ca4314a49adfe0e45701c6687fc36ee24d3.csv", import.meta.url), mimeType: "text/csv", toString}],
+    ["artistPublic.csv", {url: new URL("./files/41a9c6bfdf8907c7f19b5a52517012d51d11afcdf769218a6b5c1af5288c865ca2bf10f0fdac5144f8d3676054b833c736642053e880c85ec6123fb15744ae7f.csv", import.meta.url), mimeType: "text/csv", toString}]
   ]);
   main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
   main.variable(observer()).define(["md"], _1);
@@ -424,8 +424,9 @@ export default function define(runtime, observer) {
   main.variable(observer("selectedDataSet1")).define("selectedDataSet1", ["Generators", "viewof selectedDataSet1"], (G, _) => G.input(_));
   main.variable(observer("chart")).define("chart", ["data","selectedDataSet1","d3"], _chart);
   main.variable(observer()).define(["md"], _19);
-  main.variable(observer("chart1")).define("chart1", ["data","selectedDataSet1","d3"], _chart1);
-  main.variable(observer("chart2")).define("chart2", ["data","selectedDataSet1","d3"], _chart2);
-  main.variable(observer()).define(["md"], _22);
+  main.variable(observer("viewof selectedDataSet2")).define("viewof selectedDataSet2", ["Inputs"], _selectedDataSet2);
+  main.variable(observer("selectedDataSet2")).define("selectedDataSet2", ["Generators", "viewof selectedDataSet2"], (G, _) => G.input(_));
+  main.variable(observer("chart1")).define("chart1", ["data","selectedDataSet2","d3"], _chart1);
+  main.variable(observer("chart2")).define("chart2", ["data","selectedDataSet2","d3"], _chart2);
   return main;
 }
