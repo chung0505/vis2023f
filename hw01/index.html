@@ -275,9 +275,6 @@
     d3.select("#myCheckbox2").on("change",update);
     d3.select("#myCheckbox3").on("change",update);
     d3.select("#myCheckbox4").on("change",update);
-    d3.select("#myCheckbox5").on("change",update);
-    d3.select("#myCheckbox6").on("change",update);
-    d3.select("#myCheckbox7").on("change",update);
   
     update();
     
@@ -291,6 +288,9 @@
       }
       if (d3.select("#myCheckbox3").property("checked")){
         score += parseInt(d3.select('#m3').html());   
+      }
+      if (d3.select("#myCheckbox4").property("checked")){
+        score += parseInt(d3.select('#m4').html());   
       }
       d3.select("#myTotal").html(score);    
     }
