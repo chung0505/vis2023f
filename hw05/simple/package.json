@@ -1,0 +1,14 @@
+{
+  "name": "2a54c3d0c3b9b2c0",
+  "main": "2a54c3d0c3b9b2c0@26.js",
+  "version": "26.0.0",
+  "homepage": "https://observablehq.com/d/2a54c3d0c3b9b2c0",
+  "author": {
+    "name": "CHIH CHUNG LI's Workspace",
+    "url": "https://observablehq.com/@chih-chung-li-ws"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "4 - 5"
+  }
+}
